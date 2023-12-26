@@ -7,13 +7,17 @@
 
 import UIKit
 
+typealias Axis = NSLayoutConstraint.Axis
+typealias Alignment = UIStackView.Alignment
+typealias Distribution = UIStackView.Distribution
+
 class MakeElement {
     
-    static func makeLabelView(withChar text: String) -> UILabel {
+    static func makeLabelView(withChar text: String, size: CGFloat ) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
-//        label.font = font
+        label.font = .systemFont(ofSize: size)
         return label
     }
     
@@ -23,5 +27,15 @@ class MakeElement {
         button.configuration = .filled()
         button.configuration?.title = title
         return button
+    }
+    
+    static func makeStackView(axis: Axis, alignment: Alignment, distribution: Distribution, spacing: CGFloat) -> UIStackView {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = axis
+        stackView.alignment = .center
+        stackView.distribution = distribution
+        stackView.spacing = spacing
+        return stackView
     }
 }
