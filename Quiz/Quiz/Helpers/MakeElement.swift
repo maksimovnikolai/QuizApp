@@ -51,4 +51,11 @@ class MakeElement {
         switchView.translatesAutoresizingMaskIntoConstraints = false
         return switchView
     }
+    
+    static func makeSliderView() -> UISlider {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.value = 0.5
+        return slider
+    }
 }
