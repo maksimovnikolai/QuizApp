@@ -21,10 +21,10 @@ class MakeElement {
         return label
     }
     
-    static func makeButtonView(withTitle title: String) -> UIButton {
+    static func makeButtonView(withTitle title: String, type: UIButton.Configuration? = nil) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.configuration = .filled()
+        button.configuration = type == nil ? .filled() : type
         button.configuration?.title = title
         return button
     }
@@ -37,5 +37,12 @@ class MakeElement {
         stackView.distribution = distribution
         stackView.spacing = spacing
         return stackView
+    }
+    
+    static func makeProgressView() -> UIProgressView {
+        let progressView = UIProgressView()
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progress = 0.5
+        return progressView
     }
 }
