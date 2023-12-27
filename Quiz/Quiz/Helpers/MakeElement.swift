@@ -45,4 +45,10 @@ class MakeElement {
         progressView.progress = 0.5
         return progressView
     }
+    
+    static func makeSwitchView() -> UISwitch {
+        let switchView = UISwitch()
+        switchView.translatesAutoresizingMaskIntoConstraints = false
+        return switchView
+    }
 }
