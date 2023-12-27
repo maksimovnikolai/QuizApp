@@ -9,12 +9,13 @@ import UIKit
 
 final class IntroductionView: UIView {
     
-    lazy var dogLabel = MakeElement.makeLabelView(withChar: "🐶")
-    lazy var catLabel = MakeElement.makeLabelView(withChar: "🐱")
-    lazy var rabbitLabel = MakeElement.makeLabelView(withChar: "🐰")
-    lazy var turtleLabel = MakeElement.makeLabelView(withChar: "🐢")
-    lazy var textLabel = MakeElement.makeLabelView(withChar: "Какое вы животное?")
+    lazy var dogLabel = MakeElement.makeLabelView(withChar: "🐶", size: 30)
+    lazy var catLabel = MakeElement.makeLabelView(withChar: "🐱", size: 30)
+    lazy var rabbitLabel = MakeElement.makeLabelView(withChar: "🐰", size: 30)
+    lazy var turtleLabel = MakeElement.makeLabelView(withChar: "🐢", size: 30)
+    lazy var textLabel = MakeElement.makeLabelView(withChar: "Какое вы животное?", size: 30)
     lazy var startButton = MakeElement.makeButtonView(withTitle: "Начать опрос")
+    lazy var stackView = MakeElement.makeStackView(axis: .vertical, alignment: .center, distribution: .fill, spacing: 16)
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -30,12 +31,20 @@ final class IntroductionView: UIView {
 extension IntroductionView {
     
     private func commonInit() {
-        backgroundColor = .red
-        [dogLabel, catLabel, rabbitLabel, turtleLabel].forEach { addSubview($0) }
+        backgroundColor = .systemBackground
+        [dogLabel, catLabel, rabbitLabel, turtleLabel, stackView].forEach { addSubview($0) }
         setupConstraintsForDogLabel()
         setupConstraintsForCatLabel()
         setupConstraintsForRabbitLabel()
         setupConstraintsForTurtleLabel()
+        configureStackView()
+    }
+    
+    private func configureStackView() {
+        stackView.addArrangedSubview(textLabel)
+        stackView.addArrangedSubview(startButton)
+        setupConstraintsForStackView()
+        
     }
 }
 
@@ -67,6 +76,13 @@ extension IntroductionView {
         NSLayoutConstraint.activate([
             turtleLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
             turtleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+        ])
+    }
+    
+    private func setupConstraintsForStackView() {
+        NSLayoutConstraint.activate([
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 }
