@@ -66,6 +66,8 @@ final class QuestionView: UIView {
 extension QuestionView {
     
     private func commonInit() {
+        setupConstraintsForProgressView()
+        setupConstraintsQuestionLabel()
         configureSingleStackView()
         configureMultipleStackView()
         setupConstraintsFor(labels: [swimLabel, sleepLabel, embraceLabel, eatLabel])
@@ -113,6 +115,24 @@ extension QuestionView {
 
 // MARK: - Constraints
 extension QuestionView {
+    
+    private func setupConstraintsForProgressView() {
+        addSubview(progressView)
+        NSLayoutConstraint.activate([
+            progressView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            progressView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            
+        ])
+    }
+    
+    private func setupConstraintsQuestionLabel() {
+        addSubview(questionLabel)
+        NSLayoutConstraint.activate([
+            questionLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 5),
+            questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+        ])
+    }
     
     private func setupConstraintsForSingleStackView() {
         addSubview(singleStackView)
