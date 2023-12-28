@@ -29,15 +29,17 @@ final class QuestionView: UIView {
                                                            distribution: .fill,
                                                            spacing: 16)
     
+    lazy var swimLabel = MakeElement.makeLabelView(withChar: "Плавать", size: 17)
+    lazy var sleepLabel = MakeElement.makeLabelView(withChar: "Спать", size: 17)
+    lazy var embraceLabel = MakeElement.makeLabelView(withChar: "Обниматься", size: 17)
+    lazy var eatLabel = MakeElement.makeLabelView(withChar: "Кушать", size: 17)
+    
+    lazy var multipleButton = MakeElement.makeButtonView(withTitle: "Ответить")
+    
     lazy var swimSwitchView = MakeElement.makeSwitchView()
     lazy var sleepSwitchView = MakeElement.makeSwitchView()
     lazy var embraceSwitchView = MakeElement.makeSwitchView()
     lazy var eatSwitchView = MakeElement.makeSwitchView()
-    
-    lazy var swimLabel = MakeElement.makeLabelView(withChar: "Плавать", size: 17)
-    lazy var sleepLabel = MakeElement.makeLabelView(withChar: "Спать", size: 17)
-    lazy var embraceLabel = MakeElement.makeLabelView(withChar: "Обниматься", size: 17)
-    lazy var eatLabel = MakeElement.makeLabelView(withChar: " Кушать", size: 17)
     
     // rangedStackView
     lazy var rangedStackView = MakeElement.makeStackView(axis: .vertical,
@@ -88,12 +90,11 @@ extension QuestionView {
         let thirdHStack = getArrangedSubView(views: [embraceLabel, embraceSwitchView])
         let fourthHStack = getArrangedSubView(views: [eatLabel, eatSwitchView])
         
-        [firstHStack, secondHStack,
-         thirdHStack, fourthHStack].forEach { multipleStackView.addArrangedSubview($0) }
+        [firstHStack, secondHStack, thirdHStack,
+         fourthHStack, multipleButton].forEach { multipleStackView.addArrangedSubview($0) }
     }
     
     private func configureRangedStackView() {
-        rangedStackView.backgroundColor = .cyan
         let labelsStack = getArrangedSubView(views: [rangedLeftLabel, rangedRightLabel])
         [rangedSlider, labelsStack, rangedButton].forEach { rangedStackView.addArrangedSubview($0) }
         labelsStack.leadingAnchor.constraint(equalTo: rangedStackView.leadingAnchor, constant: 5).isActive = true
@@ -121,8 +122,7 @@ extension QuestionView {
         NSLayoutConstraint.activate([
             progressView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             progressView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            progressView.trailingAnchor.constraint(equalTo: trailingAnchor)
-            
+            progressView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
     
