@@ -13,26 +13,45 @@ final class QuestionView: UIView {
     lazy var questionLabel = MakeElement.makeLabelView(withChar: "Вопрос", size: 20)
     
     // singleStackView
-    lazy var singleStackView = MakeElement.makeStackView(axis: .vertical, alignment: .center, distribution: .fill, spacing: 16)
+    lazy var singleStackView = MakeElement.makeStackView(axis: .vertical,
+                                                         alignment: .center,
+                                                         distribution: .fill,
+                                                         spacing: 16)
+    
     lazy var steakButton = MakeElement.makeButtonView(withTitle: "Стейк", type: .plain())
     lazy var fishButton = MakeElement.makeButtonView(withTitle: "Рыба", type: .plain())
     lazy var carrotButton = MakeElement.makeButtonView(withTitle: "Морковь", type: .plain())
     lazy var cornButton =  MakeElement.makeButtonView(withTitle: "Кукуруза", type: .plain())
     
     // multipleStackView
-    lazy var multipleStackView = MakeElement.makeStackView(axis: .vertical, alignment: .fill, distribution: .fillEqually, spacing: 16)
+    lazy var multipleStackView = MakeElement.makeStackView(axis: .vertical,
+                                                           alignment: .fill,
+                                                           distribution: .fill,
+                                                           spacing: 16)
     
     lazy var swimSwitchView = MakeElement.makeSwitchView()
     lazy var sleepSwitchView = MakeElement.makeSwitchView()
     lazy var embraceSwitchView = MakeElement.makeSwitchView()
     lazy var eatSwitchView = MakeElement.makeSwitchView()
     
-    private lazy var swimLabel = MakeElement.makeLabelView(withChar: "Плавать", size: 17)
-    private lazy var sleepLabel = MakeElement.makeLabelView(withChar: "Спать", size: 17)
-    private lazy var embraceLabel = MakeElement.makeLabelView(withChar: "Обниматься", size: 17)
-    private lazy var eatLabel = MakeElement.makeLabelView(withChar: " Кушать", size: 17)
+    lazy var swimLabel = MakeElement.makeLabelView(withChar: "Плавать", size: 17)
+    lazy var sleepLabel = MakeElement.makeLabelView(withChar: "Спать", size: 17)
+    lazy var embraceLabel = MakeElement.makeLabelView(withChar: "Обниматься", size: 17)
+    lazy var eatLabel = MakeElement.makeLabelView(withChar: " Кушать", size: 17)
+    
+    // rangedStackView
+    lazy var rangedStackView = MakeElement.makeStackView(axis: .vertical,
+                                                         alignment: .firstBaseline,
+                                                         distribution: .fill,
+                                                         spacing: 16)
+    
+    lazy var rangedSlider = MakeElement.makeSliderView()
+    lazy var rangedLeftLabel = MakeElement.makeLabelView(withChar: "leftLabel", size: 17)
+    lazy var rangedRightLabel = MakeElement.makeLabelView(withChar: "rightLabel", size: 17)
+    lazy var rangedButton = MakeElement.makeButtonView(withTitle: "Ответить")
     
     
+    //MARK: Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
         commonInit()
@@ -43,51 +62,56 @@ final class QuestionView: UIView {
     }
 }
 
-// MARK: Private Methods
+// MARK: - Private Methods
 extension QuestionView {
     
     private func commonInit() {
         configureSingleStackView()
-        configureMultipleArrangedStackView()
         configureMultipleStackView()
         setupConstraintsFor(labels: [swimLabel, sleepLabel, embraceLabel, eatLabel])
+        setupConstraintsForRangedStackView()
+        configureRangedStackView()
     }
     
     private func configureSingleStackView() {
-        [
-            steakButton,
-            fishButton,
-            carrotButton,
-            cornButton
-        ].forEach { singleStackView.addArrangedSubview($0) }
+        [steakButton, fishButton,
+         carrotButton, cornButton].forEach { singleStackView.addArrangedSubview($0) }
         setupConstraintsForSingleStackView()
     }
     
-    private func configureMultipleArrangedStackView() {
+    private func configureMultipleStackView() {
+        setupConstraintsForMultipleStackView()
         let firstHStack = getArrangedSubView(views: [swimLabel, swimSwitchView])
         let secondHStack = getArrangedSubView(views: [sleepLabel, sleepSwitchView])
         let thirdHStack = getArrangedSubView(views: [embraceLabel, embraceSwitchView])
         let fourthHStack = getArrangedSubView(views: [eatLabel, eatSwitchView])
         
-        [firstHStack, secondHStack, thirdHStack, fourthHStack].forEach { multipleStackView.addArrangedSubview($0) }
+        [firstHStack, secondHStack,
+         thirdHStack, fourthHStack].forEach { multipleStackView.addArrangedSubview($0) }
     }
     
-    private func configureMultipleStackView() {
-        setupConstraintsForMultipleStackView()
+    private func configureRangedStackView() {
+        rangedStackView.backgroundColor = .cyan
+        let labelsStack = getArrangedSubView(views: [rangedLeftLabel, rangedRightLabel])
+        [rangedSlider, labelsStack, rangedButton].forEach { rangedStackView.addArrangedSubview($0) }
+        labelsStack.leadingAnchor.constraint(equalTo: rangedStackView.leadingAnchor, constant: 5).isActive = true
+        labelsStack.trailingAnchor.constraint(equalTo: rangedStackView.trailingAnchor, constant: -5).isActive = true
+        setupConstraintsForSliderView()
     }
     
     private func getArrangedSubView(views: [UIView]) -> UIStackView {
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.distribution = .fill
+        stackView.distribution = .equalSpacing
+        
         views.forEach { stackView.addArrangedSubview($0) }
         return stackView
     }
-    
 }
 
-// MARK: Constraints
+// MARK: - Constraints
 extension QuestionView {
     
     private func setupConstraintsForSingleStackView() {
@@ -105,6 +129,22 @@ extension QuestionView {
             multipleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             multipleStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             multipleStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+        ])
+    }
+    
+    private func setupConstraintsForRangedStackView() {
+        addSubview(rangedStackView)
+        NSLayoutConstraint.activate([
+            rangedStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            rangedStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            rangedStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+        ])
+    }
+    
+    private func setupConstraintsForSliderView() {
+        NSLayoutConstraint.activate([
+            rangedSlider.leadingAnchor.constraint(equalTo: rangedStackView.leadingAnchor, constant: 5),
+            rangedSlider.trailingAnchor.constraint(equalTo: rangedSlider.trailingAnchor, constant: -5),
         ])
     }
     
