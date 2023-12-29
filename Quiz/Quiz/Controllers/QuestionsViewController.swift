@@ -10,12 +10,15 @@ import UIKit
 final class QuestionsViewController: UIViewController {
     
     private let questionView = QuestionView()
-    
     private let questions = Question.getQuestions()
     private var questionIndex = 0
     private var answersChosen: [Answer] = []
     private var currentAnswers: [Answer] {
         questions[questionIndex].answers
+    }
+    
+    private var answerCount: Int {
+        currentAnswers.count - 1
     }
     
     override func loadView() {
@@ -28,67 +31,54 @@ final class QuestionsViewController: UIViewController {
         commonInit()
         singleAnswerButtonPressed()
         multipleAnswerButtonPressed()
+        rangedAnswerButtonPressed()
     }
     
     private func commonInit() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        addTarget()
+        questionView.rangedSlider.maximumValue = Float(answerCount)
+        questionView.rangedSlider.value = Float(answerCount / 2)
         updateUI()
     }
 }
 
-
-// MARK: Private methods
-extension QuestionsViewController {
-    
-    private func addTarget() {
-        questionView.rangedButton.addTarget(self, action: #selector(showResultVC), for: .touchUpInside)
-    }
-    
-    @objc
-    private func showResultVC() {
-        let resultVC = ResultViewController()
-        resultVC.navigationItem.hidesBackButton = true
-        navigationController?.pushViewController(resultVC, animated: true)
-    }
-}
-
-// MARK: -
+// MARK: - Setting up custom buttons
 extension QuestionsViewController {
     
     // MARK: Single Answer Button Pressed
     private func singleAnswerButtonPressed() {
-        questionView.singleButtons.forEach { button in
-            switch button {
-            case questionView.steakButton:
-                button.addTarget(self, action: #selector(choose), for: .touchUpInside)
-            case questionView.fishButton:
-                button.addTarget(self, action: #selector(choose), for: .touchUpInside)
-            case questionView.carrotButton:
-                button.addTarget(self, action: #selector(choose), for: .touchUpInside)
-            case questionView.cornButton:
-                button.addTarget(self, action: #selector(choose), for: .touchUpInside)
-            default:
-                break
-            }
-        }
+        questionView.steakButton.addAction(UIAction(handler: { _ in
+            self.singleAnswer(with: self.questionView.steakButton)
+        }), for: .touchUpInside)
+        
+        questionView.fishButton.addAction(UIAction(handler: { _ in
+            self.singleAnswer(with: self.questionView.fishButton)
+        }), for: .touchUpInside)
+        
+        questionView.carrotButton.addAction(UIAction(handler: { _ in
+            self.singleAnswer(with: self.questionView.carrotButton)
+        }), for: .touchUpInside)
+        
+        questionView.cornButton.addAction(UIAction(handler: { _ in
+            self.singleAnswer(with: self.questionView.cornButton)
+        }), for: .touchUpInside)
     }
-    
-    @objc
-    private func choose() {
-        guard let currentIndex = questionView.singleButtons.firstIndex(of: questionView.singleButtons.first ?? UIButton()) else { return }
+
+    private func singleAnswer(with button: UIButton) {
+        guard let currentIndex = questionView.singleButtons.firstIndex(of: button) else { return }
         let currentAnswer = currentAnswers[currentIndex]
+        print(currentAnswer)
         answersChosen.append(currentAnswer)
         nextQuestion()
     }
     
     // MARK: Multiple Answer Button Pressed
     private func multipleAnswerButtonPressed() {
-        questionView.multipleButton.addTarget(self, action: #selector(mult), for: .touchUpInside)
+        questionView.multipleButton.addTarget(self, action: #selector(multipleAnswer), for: .touchUpInside)
     }
     
     @objc
-    private func mult() {
+    private func multipleAnswer() {
         for (multipleSwitch, answer) in zip (questionView.multipleSwitches, currentAnswers) {
             if multipleSwitch.isOn {
                 answersChosen.append(answer)
@@ -97,9 +87,27 @@ extension QuestionsViewController {
         nextQuestion()
     }
     
- 
+    // MARK: Ranged Answer Button Pressed
+    private func rangedAnswerButtonPressed() {
+        questionView.rangedButton.addTarget(self, action: #selector(rangedButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc
+    private func rangedButtonPressed() {
+        rangedButtonChoice()
+        let resultVC = ResultViewController()
+        resultVC.answers = answersChosen
+        navigationController?.pushViewController(resultVC, animated: true)
+    }
+    
+    private func rangedButtonChoice() {
+        let index = lrintf(questionView.rangedSlider.value)
+        answersChosen.append(currentAnswers[index])
+        nextQuestion()
+    }
 }
 
+// MARK: - Update UI
 extension QuestionsViewController {
     
     // Update UI
@@ -122,27 +130,31 @@ extension QuestionsViewController {
     private func showCurrentAnswers(for type: ResponseType) {
         switch type {
         case .single:
-            showSingleStackView(with: currentAnswers)
+            showSingleStackView()
         case .multiple:
             showMultipleStackView()
         case .ranged:
-       
+            showRangedStackView(with: currentAnswers)
             break
         }
     }
     
     // ShowSingleStackView
-    private func showSingleStackView(with answers: [Answer]) {
+    private func showSingleStackView() {
         questionView.singleStackView.isHidden = false
     }
-    
- 
     
     // ShowMultipleStackView
     private func showMultipleStackView() {
         questionView.multipleStackView.isHidden = false
     }
-
+    
+    // ShowRangedStackView
+    private func showRangedStackView(with answers: [Answer]) {
+        questionView.rangedStackView.isHidden = false
+        questionView.rangedLeftLabel.text = answers.first?.title
+        questionView.rangedRightLabel.text = answers.last?.title
+    }
     
     private func nextQuestion() {
         questionIndex += 1
