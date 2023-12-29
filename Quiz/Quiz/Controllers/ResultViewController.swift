@@ -26,6 +26,13 @@ final class ResultViewController: UIViewController {
     func configureNavBar() {
         title = "Результат"
         navigationItem.hidesBackButton = true
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(popToRoot))
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    @objc
+    private func popToRoot() {
+        dismiss(animated: true)
     }
     
     private func updateResult() {
@@ -50,6 +57,7 @@ final class ResultViewController: UIViewController {
                 frequencyAnimal.updateValue(turtleCount, forKey: .turtle)
             }
         }
+        print(frequencyAnimal)
         updateUI(from: frequencyAnimal)
     }
     
