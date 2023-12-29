@@ -27,6 +27,7 @@ final class QuestionsViewController: UIViewController {
         
         commonInit()
         singleAnswerButtonPressed()
+        multipleAnswerButtonPressed()
     }
     
     private func commonInit() {
@@ -55,9 +56,9 @@ extension QuestionsViewController {
 // MARK: -
 extension QuestionsViewController {
     
+    // MARK: Single Answer Button Pressed
     private func singleAnswerButtonPressed() {
         questionView.singleButtons.forEach { button in
-            
             switch button {
             case questionView.steakButton:
                 button.addTarget(self, action: #selector(choose), for: .touchUpInside)
@@ -80,14 +81,29 @@ extension QuestionsViewController {
         answersChosen.append(currentAnswer)
         nextQuestion()
     }
-
+    
+    // MARK: Multiple Answer Button Pressed
+    private func multipleAnswerButtonPressed() {
+        questionView.multipleButton.addTarget(self, action: #selector(mult), for: .touchUpInside)
+    }
+    
+    @objc
+    private func mult() {
+        for (multipleSwitch, answer) in zip (questionView.multipleSwitches, currentAnswers) {
+            if multipleSwitch.isOn {
+                answersChosen.append(answer)
+            }
+        }
+        nextQuestion()
+    }
+    
+ 
 }
 
 extension QuestionsViewController {
     
     // Update UI
     private func updateUI() {
-        
         [questionView.singleStackView, questionView.multipleStackView,
          questionView.rangedStackView].forEach { $0.isHidden = true }
         
@@ -108,8 +124,9 @@ extension QuestionsViewController {
         case .single:
             showSingleStackView(with: currentAnswers)
         case .multiple:
-            break
+            showMultipleStackView()
         case .ranged:
+       
             break
         }
     }
@@ -119,6 +136,14 @@ extension QuestionsViewController {
         questionView.singleStackView.isHidden = false
     }
     
+ 
+    
+    // ShowMultipleStackView
+    private func showMultipleStackView() {
+        questionView.multipleStackView.isHidden = false
+    }
+
+    
     private func nextQuestion() {
         questionIndex += 1
         
@@ -126,8 +151,5 @@ extension QuestionsViewController {
             updateUI()
             return
         }
-        // переход
     }
 }
-
-
