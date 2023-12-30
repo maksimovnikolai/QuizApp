@@ -9,6 +9,7 @@ import UIKit
 
 final class ResultView: UIView {
     
+    // MARK: Public properties
     lazy var vStack = MakeElement.makeStackView(axis: .vertical,
                                                 alignment: .center,
                                                 distribution: .fill,
@@ -16,7 +17,7 @@ final class ResultView: UIView {
     lazy var animalTypeLabel = MakeElement.makeLabelView(withChar: "Вы - 🐶", size: 50)
     lazy var descriptionLabel = MakeElement.makeLabelView(withChar: "Description", size: 17)
     
-    
+    // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
         commonInit()
@@ -34,6 +35,7 @@ extension ResultView {
         backgroundColor = .systemBackground
         setupConstraintsForStackView()
         addArrangedSubiews()
+        descriptionLabel.numberOfLines = 0
     }
     
     private func addArrangedSubiews() {

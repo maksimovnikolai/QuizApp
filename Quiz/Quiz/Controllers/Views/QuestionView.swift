@@ -9,6 +9,7 @@ import UIKit
 
 final class QuestionView: UIView {
     
+    // MARK: Public properties
     lazy var progressView = MakeElement.makeProgressView()
     lazy var questionLabel = MakeElement.makeLabelView(withChar: "Вопрос", size: 20)
     
@@ -48,12 +49,15 @@ final class QuestionView: UIView {
                                                          spacing: 16)
     
     lazy var rangedSlider = MakeElement.makeSliderView()
-    lazy var rangedLeftLabel = MakeElement.makeLabelView(withChar: "leftLabel", size: 17)
-    lazy var rangedRightLabel = MakeElement.makeLabelView(withChar: "rightLabel", size: 17)
+    lazy var rangedLeftLabel = MakeElement.makeLabelView(withChar: " Нет", size: 17)
+    lazy var rangedRightLabel = MakeElement.makeLabelView(withChar: "Да", size: 17)
     lazy var rangedButton = MakeElement.makeButtonView(withTitle: "Ответить")
     
+    lazy var singleButtons: [UIButton] = []
+    lazy var multipleSwitches: [UISwitch] = []
     
-    //MARK: Init
+
+    // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
         commonInit()
@@ -68,6 +72,9 @@ final class QuestionView: UIView {
 extension QuestionView {
     
     private func commonInit() {
+        backgroundColor = .systemBackground
+        singleButtons = [steakButton, fishButton, carrotButton, cornButton]
+        multipleSwitches = [swimSwitchView, sleepSwitchView, embraceSwitchView, eatSwitchView]
         setupConstraintsForProgressView()
         setupConstraintsQuestionLabel()
         configureSingleStackView()
@@ -77,12 +84,14 @@ extension QuestionView {
         configureRangedStackView()
     }
     
+    // MARK: Single stack view configure
     private func configureSingleStackView() {
         [steakButton, fishButton,
          carrotButton, cornButton].forEach { singleStackView.addArrangedSubview($0) }
         setupConstraintsForSingleStackView()
     }
     
+    // MARK: Multiple stack view configure
     private func configureMultipleStackView() {
         setupConstraintsForMultipleStackView()
         let firstHStack = getArrangedSubView(views: [swimLabel, swimSwitchView])
@@ -94,6 +103,7 @@ extension QuestionView {
          fourthHStack, multipleButton].forEach { multipleStackView.addArrangedSubview($0) }
     }
     
+    // MARK: Ranged stack view configure
     private func configureRangedStackView() {
         let labelsStack = getArrangedSubView(views: [rangedLeftLabel, rangedRightLabel])
         [rangedSlider, labelsStack, rangedButton].forEach { rangedStackView.addArrangedSubview($0) }
@@ -163,8 +173,8 @@ extension QuestionView {
     
     private func setupConstraintsForSliderView() {
         NSLayoutConstraint.activate([
-            rangedSlider.leadingAnchor.constraint(equalTo: rangedStackView.leadingAnchor, constant: 5),
-            rangedSlider.trailingAnchor.constraint(equalTo: rangedSlider.trailingAnchor, constant: -5),
+            rangedSlider.leadingAnchor.constraint(equalTo: rangedStackView.safeAreaLayoutGuide.leadingAnchor),
+            rangedSlider.trailingAnchor.constraint(equalTo: rangedStackView.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
     

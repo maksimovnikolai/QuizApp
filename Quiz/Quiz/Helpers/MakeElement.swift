@@ -7,12 +7,13 @@
 
 import UIKit
 
-typealias Axis = NSLayoutConstraint.Axis
-typealias Alignment = UIStackView.Alignment
-typealias Distribution = UIStackView.Distribution
-
 class MakeElement {
     
+    typealias Axis = NSLayoutConstraint.Axis
+    typealias Alignment = UIStackView.Alignment
+    typealias Distribution = UIStackView.Distribution
+    
+    // MARK: make label
     static func makeLabelView(withChar text: String, size: CGFloat ) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -21,6 +22,7 @@ class MakeElement {
         return label
     }
     
+    // MARK: make button
     static func makeButtonView(withTitle title: String, type: UIButton.Configuration? = nil) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +31,7 @@ class MakeElement {
         return button
     }
     
+    // MARK: make stack view
     static func makeStackView(axis: Axis, alignment: Alignment, distribution: Distribution, spacing: CGFloat) -> UIStackView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +42,7 @@ class MakeElement {
         return stackView
     }
     
+    // MARK: make progress view
     static func makeProgressView() -> UIProgressView {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,16 +50,18 @@ class MakeElement {
         return progressView
     }
     
+    // MARK: make switch iew
     static func makeSwitchView() -> UISwitch {
         let switchView = UISwitch()
         switchView.translatesAutoresizingMaskIntoConstraints = false
+        switchView.isOn = true
         return switchView
     }
     
+    // MARK: make slider view
     static func makeSliderView() -> UISlider {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.value = 0.5
         return slider
     }
 }

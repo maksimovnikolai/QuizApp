@@ -9,21 +9,32 @@ import UIKit
 
 final class ResultViewController: UIViewController {
     
+    // MARK: Public properties
     var answers: [Answer]!
     
+    // MARK: Private properties
     private let resultView = ResultView()
     
+    // MARK: Life cycle
     override func loadView() {
         view = resultView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       commonInit()
+    }
+}
+
+// MARK: - Private methods
+extension ResultViewController {
+    
+    private func commonInit() {
         configureNavBar()
         updateResult()
     }
     
-    func configureNavBar() {
+    private func configureNavBar() {
         title = "Результат"
         navigationItem.hidesBackButton = true
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(popToRoot))
@@ -39,8 +50,8 @@ final class ResultViewController: UIViewController {
         var frequencyAnimal: [Animal: Int] = [:]
         var dogsCount = 0
         var catsCount = 0
-        var rabbitCount = 0
-        var turtleCount = 0
+        var rabbitsCount = 0
+        var turtlesCount = 0
         for answer in answers {
             switch answer.animal {
             case .dog:
@@ -50,11 +61,11 @@ final class ResultViewController: UIViewController {
                 catsCount += 1
                 frequencyAnimal.updateValue(catsCount, forKey: .cat)
             case .rabbit:
-                rabbitCount += 1
-                frequencyAnimal.updateValue(rabbitCount, forKey: .rabbit)
+                rabbitsCount += 1
+                frequencyAnimal.updateValue(rabbitsCount, forKey: .rabbit)
             default:
-                turtleCount += 1
-                frequencyAnimal.updateValue(turtleCount, forKey: .turtle)
+                turtlesCount += 1
+                frequencyAnimal.updateValue(turtlesCount, forKey: .turtle)
             }
         }
         print(frequencyAnimal)

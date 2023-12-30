@@ -9,8 +9,10 @@ import UIKit
 
 final class IntroductionViewController: UIViewController {
     
+    // MARK: Private properties
     private let elementView = IntroductionView()
     
+    // MARK: Life cycle
     override func loadView() {
         view = elementView
     }
@@ -21,6 +23,7 @@ final class IntroductionViewController: UIViewController {
     }
 }
 
+// MARK: - Private methods
 extension IntroductionViewController {
     
     private func commonInit() {

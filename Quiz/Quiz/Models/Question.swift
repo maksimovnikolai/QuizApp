@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: Model - Question
 struct Question {
     let title: String
     let responseType: ResponseType
@@ -48,17 +49,20 @@ struct Question {
     }
 }
 
+// MARK: - Response type
 enum ResponseType {
     case single
     case multiple
     case ranged
 }
 
+// MARK: - Answer
 struct Answer {
     let title: String
     let animal: Animal
 }
 
+// MARK: - Animal
 enum Animal: Character {
 case dog = "🐶"
 case cat = "🐱"

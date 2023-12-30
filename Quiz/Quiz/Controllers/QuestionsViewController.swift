@@ -9,6 +9,7 @@ import UIKit
 
 final class QuestionsViewController: UIViewController {
     
+    // MARK: Private properties
     private let questionView = QuestionView()
     private let questions = Question.getQuestions()
     private var questionIndex = 0
@@ -21,6 +22,7 @@ final class QuestionsViewController: UIViewController {
         currentAnswers.count - 1
     }
     
+    // MARK: Life cycle
     override func loadView() {
         view = questionView
     }
@@ -34,10 +36,11 @@ final class QuestionsViewController: UIViewController {
         rangedAnswerButtonPressed()
     }
     
+    // MARK: Common init
     private func commonInit() {
         navigationController?.navigationBar.prefersLargeTitles = true
         questionView.rangedSlider.maximumValue = Float(answerCount)
-        questionView.rangedSlider.value = Float(answerCount / 2)
+        questionView.rangedSlider.value = Float(answerCount) / Float(2)
         updateUI()
     }
 }
@@ -156,6 +159,7 @@ extension QuestionsViewController {
         questionView.rangedRightLabel.text = answers.last?.title
     }
     
+    // Next Question
     private func nextQuestion() {
         questionIndex += 1
         

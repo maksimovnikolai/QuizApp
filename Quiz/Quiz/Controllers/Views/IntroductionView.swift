@@ -9,6 +9,7 @@ import UIKit
 
 final class IntroductionView: UIView {
     
+    // MARK: Public properties
     lazy var dogLabel = MakeElement.makeLabelView(withChar: "🐶", size: 30)
     lazy var catLabel = MakeElement.makeLabelView(withChar: "🐱", size: 30)
     lazy var rabbitLabel = MakeElement.makeLabelView(withChar: "🐰", size: 30)
@@ -17,6 +18,8 @@ final class IntroductionView: UIView {
     lazy var startButton = MakeElement.makeButtonView(withTitle: "Начать опрос")
     lazy var stackView = MakeElement.makeStackView(axis: .vertical, alignment: .center, distribution: .fill, spacing: 16)
     
+    
+    // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
         commonInit()

@@ -12,6 +12,13 @@
 		ADC032152B3A4EE00082844D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC032142B3A4EE00082844D /* Assets.xcassets */; };
 		ADC032182B3A4EE00082844D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADC032162B3A4EE00082844D /* LaunchScreen.storyboard */; };
 		ADC032252B3A50170082844D /* IntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC032242B3A50170082844D /* IntroductionViewController.swift */; };
+		ADC032272B3B299E0082844D /* IntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC032262B3B299E0082844D /* IntroductionView.swift */; };
+		ADC032302B3B37AF0082844D /* MakeElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC0322F2B3B37AF0082844D /* MakeElement.swift */; };
+		ADC032322B3C49980082844D /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC032312B3C49980082844D /* QuestionsViewController.swift */; };
+		ADC032342B3C4C610082844D /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC032332B3C4C610082844D /* QuestionView.swift */; };
+		ADC032382B3D75B40082844D /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC032372B3D75B40082844D /* ResultView.swift */; };
+		ADC0323A2B3D952A0082844D /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC032392B3D952A0082844D /* ResultViewController.swift */; };
+		ADC0323D2B3DA26B0082844D /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC0323C2B3DA26B0082844D /* Question.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +29,13 @@
 		ADC032172B3A4EE00082844D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ADC032192B3A4EE00082844D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ADC032242B3A50170082844D /* IntroductionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionViewController.swift; sourceTree = "<group>"; };
+		ADC032262B3B299E0082844D /* IntroductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionView.swift; sourceTree = "<group>"; };
+		ADC0322F2B3B37AF0082844D /* MakeElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeElement.swift; sourceTree = "<group>"; };
+		ADC032312B3C49980082844D /* QuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
+		ADC032332B3C4C610082844D /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
+		ADC032372B3D75B40082844D /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		ADC032392B3D952A0082844D /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		ADC0323C2B3DA26B0082844D /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				ADC0321F2B3A4F2B0082844D /* Application */,
+				ADC0322E2B3B37840082844D /* Helpers */,
+				ADC0323B2B3DA1E40082844D /* Models */,
 				ADC032202B3A4F3B0082844D /* Controllers */,
 				ADC032222B3A4F760082844D /* Resources */,
 				ADC032232B3A4F970082844D /* SupportingFiles */,
@@ -74,8 +90,10 @@
 		ADC032202B3A4F3B0082844D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				ADC032212B3A4F490082844D /* Views */,
 				ADC032242B3A50170082844D /* IntroductionViewController.swift */,
+				ADC032312B3C49980082844D /* QuestionsViewController.swift */,
+				ADC032392B3D952A0082844D /* ResultViewController.swift */,
+				ADC032212B3A4F490082844D /* Views */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -83,6 +101,9 @@
 		ADC032212B3A4F490082844D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				ADC032262B3B299E0082844D /* IntroductionView.swift */,
+				ADC032332B3C4C610082844D /* QuestionView.swift */,
+				ADC032372B3D75B40082844D /* ResultView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -102,6 +123,22 @@
 				ADC032192B3A4EE00082844D /* Info.plist */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		ADC0322E2B3B37840082844D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				ADC0322F2B3B37AF0082844D /* MakeElement.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		ADC0323B2B3DA1E40082844D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ADC0323C2B3DA26B0082844D /* Question.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,9 +211,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADC032302B3B37AF0082844D /* MakeElement.swift in Sources */,
 				ADC0320C2B3A4EDF0082844D /* AppDelegate.swift in Sources */,
+				ADC032322B3C49980082844D /* QuestionsViewController.swift in Sources */,
+				ADC032342B3C4C610082844D /* QuestionView.swift in Sources */,
 				ADC032252B3A50170082844D /* IntroductionViewController.swift in Sources */,
+				ADC0323D2B3DA26B0082844D /* Question.swift in Sources */,
+				ADC032382B3D75B40082844D /* ResultView.swift in Sources */,
+				ADC032272B3B299E0082844D /* IntroductionView.swift in Sources */,
 				ADC0320E2B3A4EDF0082844D /* SceneDelegate.swift in Sources */,
+				ADC0323A2B3D952A0082844D /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
